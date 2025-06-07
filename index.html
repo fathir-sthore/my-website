@@ -1,0 +1,212 @@
+<!DOCTYPE html><html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pembayaran Produk</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+    }body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  background: linear-gradient(135deg, #0f172a, #1e293b);
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.card {
+  background: #1e293b;
+  padding: 30px;
+  border-radius: 24px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+  width: 100%;
+  max-width: 480px;
+  animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+h1 {
+  text-align: center;
+  color: #60a5fa;
+  margin-bottom: 25px;
+  font-size: 28px;
+}
+
+.product, .wallet, .qris, .form {
+  margin-bottom: 20px;
+}
+
+.product {
+  background: #334155;
+  padding: 15px 20px;
+  border-radius: 16px;
+  margin-bottom: 12px;
+}
+
+.product h2 {
+  margin: 0 0 5px;
+  font-size: 20px;
+  color: #ffffff;
+}
+
+.product p {
+  margin: 0;
+  color: #4ade80;
+  font-weight: 600;
+}
+
+.wallet button {
+  display: block;
+  background: #475569;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  margin: 6px 0;
+  border-radius: 10px;
+  cursor: pointer;
+  width: 100%;
+  font-size: 14px;
+  transition: background 0.3s;
+}
+
+.wallet button:hover {
+  background: #64748b;
+}
+
+.qris img {
+  width: 100%;
+  max-width: 200px;
+  border-radius: 12px;
+  display: block;
+  margin: 0 auto;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+label {
+  font-weight: 600;
+  margin-bottom: 6px;
+  display: block;
+  color: #e2e8f0;
+}
+
+input[type="text"], input[type="file"] {
+  width: 100%;
+  padding: 10px 12px;
+  margin-top: 4px;
+  margin-bottom: 12px;
+  border: 1px solid #475569;
+  border-radius: 10px;
+  font-size: 14px;
+  background: #0f172a;
+  color: white;
+}
+
+#preview {
+  max-width: 100%;
+  margin-top: 8px;
+  border-radius: 10px;
+  display: none;
+}
+
+.btn {
+  background: #3b82f6;
+  color: white;
+  border: none;
+  padding: 14px;
+  width: 100%;
+  border-radius: 12px;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
+}
+
+.btn:hover {
+  background: #2563eb;
+  transform: translateY(-1px);
+}
+
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Pembayaran</h1><div class="product">
+  <h2>SC BUG</h2>
+  <p>Rp40.000</p>
+</div>
+
+<div class="product">
+  <h2>PATNER</h2>
+  <p>Rp45.000</p>
+</div>
+
+<div class="product">
+  <h2>RESELER</h2>
+  <p>Rp10.000</p>
+</div>
+
+<div class="wallet">
+  <h3>pay fathir:</h3>
+  <button onclick="salinTeks('0882003493812')">Salin DANA: 0882003493812</button>
+  <button onclick="salinTeks('08895668901')">Salin GoPay: 08895668901</button>
+  <button onclick="salinTeks('0882003493812')">Salin OVO: 0882003493812</button>
+</div>
+
+<div class="qris">
+
+  </h3> <img src="https://files.catbox.moe/ry1z0e.jpg" alt="QRIS FATHIR" style="width:100%; max-width:280px; border-radius:16px; box-shadow:0 4px 16px rgba(0,0,0,0.2);">
+</div>
+
+<div class="form">
+  <label for="nama">Nama Pembeli</label>
+  <input type="text" id="nama" placeholder="Contoh: Budi Santoso">
+
+  <label for="bukti">Upload Bukti Transfer</label>
+  <input type="file" id="bukti" accept="image/*" onchange="previewImage()">
+  <img id="preview" alt="Preview Bukti">
+</div>
+
+<button class="btn" onclick="kirimPembayaran()">Saya Sudah Bayar</button>
+
+  </div>  <script>
+    function previewImage() {
+      const file = document.getElementById('bukti').files[0];
+      const preview = document.getElementById('preview');
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          preview.src = e.target.result;
+          preview.style.display = 'block';
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+
+    function kirimPembayaran() {
+      const nama = document.getElementById("nama").value;
+      const bukti = document.getElementById("bukti").files[0];
+
+      if (!nama || !bukti) {
+        alert("Mohon isi nama dan upload bukti pembayaran.");
+        return;
+      }
+
+      alert(`Terima kasih, ${nama}! Pembayaran Anda sedang diproses.`);
+    }
+
+    function salinTeks(teks) {
+      navigator.clipboard.writeText(teks)
+        .then(() => alert("Nomor telah disalin ke clipboard!"))
+        .catch(() => alert("Gagal menyalin nomor."));
+    }
+  </script></body>
+</html>
