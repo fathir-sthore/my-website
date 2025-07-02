@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tutorial: Cara Membuat Bot WhatsApp dengan Node.js</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.7;
+            margin: 0;
+            padding: 20px;
+            background-color: #f8f9fa;
+            color: #343a40;
+        }
+        .container {
+            max-width: 900px;
+            margin: 30px auto;
+            background: #ffffff;
+            padding: 35px 45px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.07);
+        }
+        h1 {
+            color: #007bff; /* Blue for main title */
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
+        }
+        h2 {
+            color: #343a40;
+            border-bottom: 2px solid #e9ecef;
+            padding-bottom: 10px;
+            margin-top: 40px;
+            margin-bottom: 25px;
+            font-size: 1.8em;
+        }
+        h3 {
+            color: #0056b3;
+            margin-top: 25px;
+            margin-bottom: 15px;
+            font-size: 1.4em;
+        }
+        p {
+            margin-bottom: 15px;
+        }
+        ul {
+            list-style-type: disc;
+            margin-left: 25px;
+            margin-bottom: 15px;
+        }
+        ul li {
+            margin-bottom: 8px;
+        }
+        .description-intro {
+            text-align: center;
+            font-style: italic;
+            margin-top: 15px;
+            margin-bottom: 30px;
+            color: #6c757d;
+            font-size: 1.1em;
+        }
+        .last-updated {
+            text-align: right;
+            font-size: 0.85em;
+            color: #6c757d;
+            margin-bottom: 20px;
+        }
+        code, pre {
+            font-family: 'Consolas', 'Monaco', monospace;
+            background-color: #e9ecef;
+            padding: 2px 4px;
+            border-radius: 4px;
+            font-size: 0.95em;
+            color: #c82333; /* A bit reddish for code */
+        }
+        pre {
+            display: block;
+            padding: 15px;
+            margin: 20px 0;
+            overflow-x: auto;
+            border: 1px solid #dee2e6;
+            border-left: 5px solid #007bff;
+            background-color: #f1f3f5;
+            color: #212529;
+        }
+        pre code {
+            background-color: transparent;
+            padding: 0;
+            border-radius: 0;
+            color: #212529;
+        }
+        .credit {
+            text-align: center;
+            margin-top: 50px;
+            font-style: italic;
+            color: #6c757d;
+        }
+        hr {
+            border: 0;
+            height: 1px;
+            background: #dee2e6;
+            margin: 40px 0;
+        }
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        b {
+            color: #0056b3; /* Darker blue for bold text */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🤖 Tutorial: Cara Membuat Bot WhatsApp dengan Node.js</h1>
+        <p class="last-updated">Terakhir diperbarui: 1 Juli 2025</p>
+
+        <p class="description-intro">Tutorial ini membahas langkah demi langkah cara membuat bot WhatsApp menggunakan Node.js dan Baileys (library WhatsApp Web API). Cocok untuk pemula yang ingin membangun bot WhatsApp otomatis yang dapat menjawab pesan, menjalankan perintah, mengirim media, dan lainnya.</p>
+
+        <hr>
+
+        <h2>🧰 Alat & Bahan yang Dibutuhkan</h2>
+        <p>Sebelum memulai, pastikan Anda memiliki alat-alat berikut:</p>
+        <ul>
+            <li><b>Komputer/Laptop</b></li>
+            <li><b>Koneksi internet</b> yang stabil</li>
+            <li>Akun <b>WhatsApp aktif</b> untuk dipindai</li>
+            <li><b>Text Editor</b> (rekomendasi: <b>Visual Studio Code</b>)</li>
+            <li><b>Node.js</b> (versi <b>v16 ke atas</b>). Anda bisa mengunduhnya dari <a href="https://nodejs.org/" target="_blank">https://nodejs.org/</a>. Pastikan Anda mengunduh versi <b>LTS</b> (Long Term Support) untuk stabilitas.</li>
+            <li><b>Terminal/Command Prompt</b> (untuk menjalankan perintah).</li>
+        </ul>
+
+        <hr>
+
+        <h2>🔧 Langkah-Langkah Pembuatan Bot WhatsApp</h2>
+        <p>Ikuti langkah-langkah di bawah ini untuk membuat bot WhatsApp pertama Anda.</p>
+
+        <h3>1. Instalasi Node.js</h3>
+        <p>Jika Anda belum menginstalnya, unduh dan instal Node.js dari situs resminya. Ikuti instruksi instalasi yang ada. Setelah terinstal, Anda bisa memverifikasinya dengan mengetik <code>node -v</code> dan <code>npm -v</code> di terminal.</p>
+        <pre><code>node -v
+npm -v</code></pre>
+
+        <h3>2. Buat Folder Proyek</h3>
+        <p>Buka <b>Terminal</b> atau <b>Command Prompt</b> Anda, lalu buat folder baru untuk proyek bot Anda dan masuk ke dalamnya.</p>
+        <pre><code>mkdir bot-wa
+cd bot-wa
+npm init -y</code></pre>
+        <ul>
+            <li><code>mkdir bot-wa</code>: Membuat direktori baru bernama <code>bot-wa</code>.</li>
+            <li><code>cd bot-wa</code>: Masuk ke dalam direktori <code>bot-wa</code>.</li>
+            <li><code>npm init -y</code>: Menginisialisasi proyek Node.js dan membuat file <code>package.json</code> secara otomatis.</li>
+        </ul>
+
+        <h3>3. Instalasi Library Baileys</h3>
+        <p>Baileys adalah <i>library</i> yang akan kita gunakan untuk berinteraksi dengan WhatsApp Web API. Instal dengan perintah berikut:</p>
+        <pre><code>npm install @whiskeysockets/baileys @hapi/boom</code></pre>
+        <p><i>Catatan: Saya menambahkan <code>@hapi/boom</code> karena sering digunakan bersama Baileys untuk penanganan error.</i></p>
+
+        <h3>4. Buat File Bot Utama</h3>
+        <p>Buat file baru bernama <code>index.js</code> di dalam folder <code>bot-wa</code> menggunakan <i>text editor</i> Anda (misalnya Visual Studio Code). Kemudian, salin dan tempel kode berikut ke dalam file <code>index.js</code>:</p>
+        <pre><code class="language-javascript">const { default: makeWASocket, useSingleFileAuthState, fetchLatestBaileysVersion } = require('@whiskeysockets/baileys');
+const { Boom } = require('@hapi/boom'); // Menggunakan Boom untuk penanganan error
+const fs = require('fs'); // Modul fs untuk bekerja dengan sistem file
+
+// Menggunakan useSingleFileAuthState untuk menyimpan sesi otentikasi
+const { state, saveState } = useSingleFileAuthState('./auth.json');
+
+async function startBot() {
+    // Mengambil versi Baileys terbaru
+    const { version, isLatest } = await fetchLatestBaileysVersion();
+    console.log(`Menggunakan Baileys versi: ${version.join('.')}, ${isLatest ? 'Terbaru' : 'Perlu Diperbarui'}`);
+
+    const sock = makeWASocket({
+        version,
+        auth: state, // Menggunakan state otentikasi
+        printQRInTerminal: true // Menampilkan QR Code di terminal untuk login
+    });
+
+    // Event listener untuk update kredensial (penting untuk menyimpan sesi)
+    sock.ev.on('creds.update', saveState);
+
+    // Event listener untuk menerima pesan
+    sock.ev.on('messages.upsert', async ({ messages, type }) => {
+        const msg = messages[0]; // Ambil pesan pertama dari array
+        
+        // Abaikan pesan jika tidak ada konten atau dari status WA
+        if (!msg.message || msg.key.fromMe || msg.key.remoteJid === 'status@broadcast') return;
+
+        // Mendapatkan ID pengirim pesan
+        const from = msg.key.remoteJid;
+        
+        // Mendapatkan teks pesan
+        const text = msg.message.conversation || msg.message.extendedTextMessage?.text || msg.message.imageMessage?.caption || '';
+
+        console.log(`Pesan dari ${from}: ${text}`);
+
+        // Contoh Balasan Otomatis
+        if (text === '!menu') {
+            await sock.sendMessage(from, { 
+                text: 'Halo! Ini adalah bot WhatsApp kamu 🤖\n\nPerintah:\n• !menu\n• !ping\n• !halo' 
+            });
+        } else if (text === '!ping') {
+            await sock.sendMessage(from, { 
+                text: 'PONG!! 🏓' 
+            });
+        } else if (text === '!halo') {
+            await sock.sendMessage(from, { 
+                text: `Halo juga, ${msg.pushName || from.split('@')[0]}!` 
+            });
+        } else if (text.toLowerCase().includes('apa kabar')) {
+            await sock.sendMessage(from, {
+                text: 'Baik-baik saja! Kamu bagaimana?'
+            });
+        }
+    });
+
+    // Menangani error koneksi
+    sock.ev.on('connection.update', (update) => {
+        const { connection, lastDisconnect } = update;
+        if (connection === 'close') {
+            const shouldReconnect = (lastDisconnect.error instanceof Boom)?.output?.statusCode !== 401;
+            console.log('Koneksi terputus karena', lastDisconnect.error, ', menyambung ulang:', shouldReconnect);
+            // Sambungkan ulang jika bukan karena otentikasi (401)
+            if (shouldReconnect) {
+                startBot();
+            } else {
+                console.log('Koneksi tidak dapat disambung ulang. Hapus auth.json dan mulai ulang.');
+            }
+        } else if (connection === 'open') {
+            console.log('Bot WhatsApp Terhubung!');
+        }
+    });
+}
+
+// Memulai bot
+startBot();</code></pre>
+        <ul>
+            <li><b>Penjelasan Kode Singkat:</b>
+                <ul>
+                    <li>Kode ini mengimpor modul yang dibutuhkan (<code>makeWASocket</code>, <code>useSingleFileAuthState</code>, <code>fetchLatestBaileysVersion</code> dari Baileys, <code>Boom</code> untuk error, dan <code>fs</code> untuk <i>file system</i>).</li>
+                    <li><code>useSingleFileAuthState</code> digunakan untuk menyimpan sesi login Anda ke file <code>auth.json</code>, sehingga Anda tidak perlu memindai QR <i>code</i> setiap kali bot dimulai.</li>
+                    <li>Fungsi <code>startBot()</code> akan:
+                        <ul>
+                            <li>Mendapatkan versi Baileys terbaru.</li>
+                            <li>Membuat <i>instance socket</i> WhatsApp.</li>
+                            <li>Mencetak QR <i>code</i> di terminal untuk Anda <i>scan</i> dengan aplikasi WhatsApp di ponsel.</li>
+                            <li>Menyimpan kredensial login setiap kali ada pembaruan (<code>creds.update</code>).</li>
+                            <li>Mendengarkan pesan masuk (<code>messages.upsert</code>).</li>
+                            <li>Jika pesan adalah <code>!menu</code>, bot akan membalas dengan daftar perintah.</li>
+                            <li>Jika pesan adalah <code>!ping</code>, bot akan membalas <code>PONG!! 🏓</code>.</li>
+                            <li>Jika pesan adalah <code>!halo</code>, bot akan membalas sapaan.</li>
+                            <li>Jika pesan mengandung "apa kabar", bot akan membalasnya.</li>
+                            <li>Menangani status koneksi dan mencoba menyambung ulang jika terputus (kecuali karena masalah otentikasi).</li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+
+        <h3>5. Jalankan Bot</h3>
+        <p>Kembali ke <b>Terminal</b> atau <b>Command Prompt</b> Anda, pastikan Anda berada di dalam folder <code>bot-wa</code>. Jalankan bot dengan perintah:</p>
+        <pre><code>node index.js</code></pre>
+        <p>→ Akan muncul <b>QR Code</b> di terminal Anda. Buka aplikasi WhatsApp di ponsel Anda, masuk ke <b>Pengaturan > Perangkat Tertaut</b>, lalu pindai QR Code tersebut. Setelah berhasil dipindai, bot Anda akan terhubung!</p>
+
+        <hr>
+
+        <h2>⚙️ Fitur Dasar yang Bisa Ditambahkan</h2>
+        <p>Setelah bot dasar Anda berjalan, Anda bisa mengembangkan fitur-fitur lain yang lebih canggih:</p>
+        <ul>
+            <li><b>Kirim gambar/stiker otomatis:</b> Balas dengan media berdasarkan perintah.</li>
+            <li><b>Perintah otomatis:</b> Buat perintah lebih kompleks seperti <code>!help</code>, <code>!owner</code>, <code>!info</code>.</li>
+            <li><b>Fitur <i>download</i> video:</b> Misalnya, <i>download</i> video TikTok/YouTube dengan mengirim <i>link</i>.</li>
+            <li><b>Auto-responder berdasarkan <i>keyword</i>:</b> Bot akan membalas otomatis jika mendeteksi <i>keyword</i> tertentu dalam pesan.</li>
+            <li><b>Integrasi dengan <i>database</i> atau API:</b> Simpan data pengguna, <i>log</i> transaksi, atau ambil data dari layanan eksternal.</li>
+        </ul>
+
+        <hr>
+
+        <h2>📦 Tips Tambahan</h2>
+        <ul>
+            <li><b>Gunakan PM2:</b> Untuk menjaga bot tetap hidup di <i>Virtual Private Server</i> (VPS) dan berjalan di <i>background</i>, gunakan PM2.
+                <pre><code>npm install -g pm2
+pm2 start index.js --name "whatsapp-bot"</code></pre>
+            </li>
+            <li><b>Backup <code>auth.json</code>:</b> File <code>auth.json</code> berisi sesi login Anda. Cadangkan file ini secara berkala agar Anda tidak perlu memindai QR <i>code</i> ulang jika terjadi masalah.</li>
+            <li><b>Jangan <i>Spam</i>:</b> Patuhi Ketentuan Layanan (TOS) WhatsApp. Jangan gunakan bot untuk <i>spam</i> atau aktivitas ilegal lainnya agar akun Anda tidak diblokir.</li>
+        </ul>
+
+        <hr>
+
+        <h2>📁 Struktur Folder Sederhana</h2>
+        <pre><code>bot-wa/
+├── index.js      // File utama bot Anda
+├── auth.json     // File tempat sesi login Anda disimpan (akan otomatis dibuat setelah scan QR)
+├── package.json  // Informasi proyek dan daftar dependensi
+└── node_modules/ // Folder tempat library Baileys dan dependensi lainnya diinstal</code></pre>
+
+        <p class="credit"><i>Sekian tutorial singkat ini. Semoga membantu Anda dalam proses pembuatan bot WhatsApp Anda!</i></p>
+        <p class="credit"><i>Tutorial ini disiapkan oleh Fathir Sthore.</i></p>
+    </div>
+</body>
+</html>

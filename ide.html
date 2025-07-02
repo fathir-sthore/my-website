@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Penyedia Hosting Gratis Terbaik untuk Proyek Kecil Anda</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #eef4f7;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 30px auto;
+            background-color: #ffffff;
+            padding: 30px 40px;
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.8em;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        h1::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: 0;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 5px;
+            background-color: #3498db;
+            border-radius: 3px;
+        }
+
+        .intro {
+            text-align: center;
+            font-size: 1.1em;
+            margin-bottom: 40px;
+            color: #555;
+            line-height: 1.8;
+        }
+
+        .hosting-provider {
+            background-color: #f9fcfe;
+            border-left: 6px solid #3498db;
+            margin-bottom: 25px;
+            padding: 20px 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .hosting-provider:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .hosting-provider h2 {
+            color: #2980b9;
+            font-size: 1.8em;
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+
+        .hosting-provider p {
+            margin-bottom: 10px;
+            color: #444;
+        }
+
+        .features {
+            list-style-type: none;
+            padding: 0;
+            margin-top: 15px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+        }
+
+        .features li {
+            background-color: #ecf0f1;
+            padding: 8px 12px;
+            border-radius: 5px;
+            font-size: 0.95em;
+            color: #333;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .features li::before {
+            content: '✔️'; / Unicode checkmark /
+            color: #27ae60;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+        .features li:nth-child(1)::before { content: '🚀'; color: #e67e22; }
+        .features li:nth-child(2)::before { content: '🌐'; color: #3498db; }
+        .features li:nth-child(3)::before { content: '📈'; color: #2ecc71; }
+        .features li:nth-child(4)::before { content: '✅'; color: #27ae60; }
+        .features li:nth-child(5)::before { content: '🌍'; color: #9b59b6; }
+        .features li:nth-child(6)::before { content: '🔌'; color: #f1c40f; }
+        .features li:nth-child(7)::before { content: '🛠️'; color: #e74c3c; }
+        .features li:nth-child(8)::before { content: '💡'; color: #f39c12; }
+        .features li:nth-child(9)::before { content: '📦'; color: #1abc9c; }
+        .features li:nth-child(10)::before { content: '⚡'; color: #f1c40f; }
+        .features li:nth-child(11)::before { content: '🆓'; color: #2ecc71; }
+        .features li:nth-child(12)::before { content: '📄'; color: #bdc3c7; }
+        .features li:nth-child(13)::before { content: '✏️'; color: #e67e22; }
+        .features li:nth-child(14)::before { content: '🔄'; color: #3498db; }
+        .features li:nth-child(15)::before { content: '🧠'; color: #9b59b6; }
+        .features li:nth-child(16)::before { content: '🎛️'; color: #e74c3c; }
+        .features li:nth-child(17)::before { content: '🧾'; color: #f39c12; }
+        .features li:nth-child(18)::before { content: '📂'; color: #1abc9c; }
+        .features li:nth-child(19)::before { content: '🧑‍💻'; color: #27ae60; }
+        .features li:nth-child(20)::before { content: '⚙️'; color: #34495e; }
+        .features li:nth-child(21)::before { content: '📡'; color: #c0392b; }
+
+
+        .note {
+            font-style: italic;
+            color: #666;
+            margin-top: 15px;
+            padding-top: 10px;
+            border-top: 1px dashed #ddd;
+        }
+
+        .conclusion {
+            text-align: center;
+            font-size: 1.15em;
+            margin-top: 40px;
+            color: #2c3e50;
+            padding-top: 20px;
+            border-top: 2px solid #ddd;
+        }
+
+        / Responsive Design /
+        @media (max-width: 768px) {
+            .container {
+                margin: 20px auto;
+                padding: 20px 25px;
+            }
+
+            h1 {
+                font-size: 2.2em;
+            }
+
+            .hosting-provider h2 {
+                font-size: 1.5em;
+            }
+
+            .features {
+                grid-template-columns: 1fr; / Stack features on small screens /
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+
+            .container {
+                margin: 10px auto;
+                padding: 15px;
+            }
+
+            h1 {
+                font-size: 1.8em;
+            }
+
+            .hosting-provider h2 {
+                font-size: 1.3em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>☁️ Penyedia Hosting Gratis Terbaik untuk Proyek Kecil Anda</h1>
+        <p class="intro">Untuk proyek kecil, belajar pemrograman, atau mengembangkan portofolio pribadi, menggunakan layanan hosting gratis bisa menjadi solusi hemat namun tetap fungsional. Berikut adalah beberapa penyedia hosting gratis terbaik yang layak dicoba:</p>
+
+        <div class="hosting-provider">
+            <h2>1. Vercel</h2>
+            <p>Vercel adalah pilihan ideal untuk proyek berbasis JavaScript, khususnya Next.js. Proses deploy sangat mudah, cukup dengan koneksi ke GitHub.</p>
+            <ul class="features">
+                <li>🚀 Deploy cepat dan otomatis</li>
+                <li>🌐 Mendukung custom domain</li>
+                <li>📈 Gratis untuk penggunaan kecil dan pribadi</li>
+            </ul>
+            <p class="note">Cocok untuk: developer front-end & aplikasi modern.</p>
+        </div>
+
+        <div class="hosting-provider">
+            <h2>2. Netlify</h2>
+            <p>Netlify sangat populer untuk proyek statis seperti HTML, CSS, dan JavaScript. Integrasi dengan Git sangat baik.</p>
+            <ul class="features">
+                <li>✅ Continuous deployment via Git</li>
+                <li>🌍 HTTPS & custom domain gratis</li>
+                <li>🔌 Dukungan untuk serverless function</li>
+            </ul>
+            <p class="note">Ideal untuk: landing page, portfolio, dan blog statis.</p>
+        </div>
+
+        <div class="hosting-provider">
+            <h2>3. Render</h2>
+            <p>Render menawarkan layanan seperti Heroku tapi dengan lebih banyak fitur gratis. Mendukung proyek fullstack.</p>
+            <ul class="features">
+                <li>🛠️ Support Node.js, Python, Ruby, dan lainnya</li>
+                <li>💡 Free web service & cron jobs</li>
+                <li>📦 Database PostgreSQL gratis</li>
+            </ul>
+            <p class="note">Cocok untuk: aplikasi backend dan API kecil.</p>
+        </div>
+
+        <div class="hosting-provider">
+            <h2>4. GitHub Pages</h2>
+            <p>GitHub Pages sangat cocok untuk situs statis, terutama yang dibuat dengan Jekyll atau Markdown.</p>
+            <ul class="features">
+                <li>⚡ Hosting langsung dari repositori GitHub</li>
+                <li>🆓 Gratis selamanya</li>
+                <li>📄 Cocok untuk dokumentasi dan blog statis</li>
+            </ul>
+            <p class="note">Pilihan tepat untuk: pemula & dokumentasi proyek.</p>
+        </div>
+
+        <div class="hosting-provider">
+            <h2>5. Glitch</h2>
+            <p>Glitch adalah platform kolaboratif berbasis web yang memungkinkan Anda membuat aplikasi langsung di browser.</p>
+            <ul class="features">
+                <li>✏️ Edit kode langsung di browser</li>
+                <li>🔄 Auto-reload project</li>
+                <li>🧠 Banyak contoh/template siap pakai</li>
+            </ul>
+            <p class="note">Sangat ramah untuk: belajar coding & prototyping.</p>
+        </div>
+
+        <div class="hosting-provider">
+            <h2>6. 000WebHost</h2>
+            <p>Salah satu layanan hosting klasik dengan panel kontrol seperti hosting berbayar.</p>
+            <ul class="features">
+                <li>🎛️ cPanel dasar untuk pemula</li>
+                <li>🧾 Mendukung PHP dan MySQL</li>
+                <li>📂 300MB ruang penyimpanan</li>
+            </ul>
+            <p class="note">Baik untuk: eksperimen CMS seperti WordPress.</p>
+        </div>
+
+        <div class="hosting-provider">
+            <h2>7. Replit</h2>
+            <p>Replit bukan hanya hosting, tapi juga IDE online. Cocok untuk aplikasi kecil dengan runtime berbagai bahasa.</p>
+            <ul class="features">
+                <li>🧑‍💻 Kode dan jalankan langsung di browser</li>
+                <li>⚙️ Mendukung Python, Node.js, Java, dll.</li>
+                <li>📡 Bisa digunakan untuk deploy bot & API kecil</li>
+            </ul>
+            <p class="note">Pilihan fleksibel untuk: edukasi dan demo aplikasi.</p>
+        </div>
+
+        <p class="conclusion">Untuk proyek kecil, portofolio, atau eksperimen coding, penyedia hosting gratis seperti Vercel, Netlify, dan Render sangat direkomendasikan. Sesuaikan pilihan dengan jenis proyek dan kebutuhan teknis Anda.</p>
+    </div>
+
+    <script>
+        // JavaScript untuk menambahkan interaktivitas sederhana jika diinginkan.
+        // Misalnya, efek hover pada kartu penyedia hosting.
+        document.addEventListener('DOMContentLoaded', () => {
+            const hostingProviders = document.querySelectorAll('.hosting-provider');
+
+            hostingProviders.forEach(provider => {
+                provider.addEventListener('mouseenter', () => {
+                    provider.style.transform = 'translateY(-8px)'; // Efek sedikit naik
+                    provider.style.boxShadow = '0 10px 30px rgba(0, 0, 0, 0.15)'; // Bayangan lebih kuat
+                });
+
+                provider.addEventListener('mouseleave', () => {
+                    provider.style.transform = 'translateY(0)'; // Kembali ke posisi semula
+                    provider.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.05)'; // Bayangan awal
+                });
+            });
+        });
+    </script>
+</body>
+</html>
