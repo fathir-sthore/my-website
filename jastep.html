@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jastep - FATHIR</title>
+    <style>
+        body {
+            font-family: 'Courier New', monospace;
+            background-color: #0a0a0a;
+            color: #00ff00;
+            margin: 0;
+            padding: 20px;
+            background-image: url('https://files.catbox.moe/cici2r.jpg');
+            background-size: cover;
+            background-blend-mode: overlay;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: rgba(10, 10, 10, 0.9);
+            padding: 20px;
+            border: 1px solid #00ff00;
+            border-radius: 5px;
+            box-shadow: 0 0 15px #00ff00;
+        }
+        h1 {
+            text-align: center;
+            color: #00ff00;
+            text-shadow: 0 0 5px #00ff00;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input, select, button {
+            background-color: #111;
+            color: #00ff00;
+            border: 1px solid #00ff00;
+            padding: 8px;
+            width: 100%;
+            font-family: 'Courier New', monospace;
+        }
+        button {
+            background-color: #003300;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 10px;
+            transition: all 0.3s;
+        }
+        button:hover {
+            background-color: #006600;
+            box-shadow: 0 0 10px #00ff00;
+        }
+        .email-targets {
+            margin-top: 20px;
+        }
+        .email-target {
+            display: flex;
+            margin-bottom: 10px;
+        }
+        .email-target input {
+            flex-grow: 1;
+            margin-right: 10px;
+        }
+        .remove-email {
+            background-color: #330000;
+            width: auto;
+        }
+        .remove-email:hover {
+            background-color: #660000;
+        }
+        .add-email {
+            background-color: #000033;
+            width: auto;
+        }
+        .add-email:hover {
+            background-color: #000066;
+        }
+        .status {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #00ff00;
+            display: none;
+        }
+        .limits {
+            margin-top: 20px;
+            font-size: 0.9em;
+            color: #009900;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>JASTEP</h1>
+        <h3>FATTHIR STHORE</h3>
+        
+        <div class="form-group">
+            <label for="account-type">Account Type:</label>
+            <select id="account-type">
+                <option value="facebook">Facebook</option>
+                <option value="google">Google</option>
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label for="total-accounts">Total Accounts to Generate:</label>
+            <input type="number" id="total-accounts" min="1" max="800" value="100">
+        </div>
+        
+        <div class="email-targets" id="email-targets">
+            <h4>Target Emails:</h4>
+            <div class="email-target">
+                <input type="email" placeholder="target1@example.com" class="target-email">
+                <button type="button" class="remove-email">-</button>
+            </div>
+        </div>
+        
+        <button type="button" class="add-email" id="add-email">+ Add Email Target</button>
+        
+        <div class="limits">
+            <p>Max 800 accounts per email per day</p>
+            <p>Max 10 target emails</p>
+        </div>
+        
+        <button type="button" id="generate-btn">Generate & Send Account Data</button>
+        
+        <div class="status" id="status"></div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const emailTargets = document.getElementById('email-targets');
+            const addEmailBtn = document.getElementById('add-email');
+            const generateBtn = document.getElementById('generate-btn');
+            const statusDiv = document.getElementById('status');
+            
+            // Add email target field
+            addEmailBtn.addEventListener('click', function() {
+                const emailFields = document.querySelectorAll('.target-email');
+                if (emailFields.length >= 10) {
+                    showStatus('Maximum of 10 target emails reached', 'error');
+                    return;
+                }
+                
+                const newEmailDiv = document.createElement('div');
+                newEmailDiv.className = 'email-target';
+                newEmailDiv.innerHTML = `
+                    <input type="email" placeholder="target${emailFields.length + 1}@example.com" class="target-email">
+                    <button type="button" class="remove-email">-</button>
+                `;
+                emailTargets.appendChild(newEmailDiv);
+                
+                // Add event to remove button
+                newEmailDiv.querySelector('.remove-email').addEventListener('click', function() {
+                    emailTargets.removeChild(newEmailDiv);
+                });
+            });
+            
+            // Generate and send data
+            generateBtn.addEventListener('click', function() {
+                const accountType = document.getElementById('account-type').value;
+                const totalAccounts = parseInt(document.getElementById('total-accounts').value);
+                const emailFields = document.querySelectorAll('.target-email');
+                
+                // Validate inputs
+                if (emailFields.length === 0) {
+                    showStatus('Please add at least one target email', 'error');
+                    return;
+                }
+                
+                if (totalAccounts < 1 || totalAccounts > 800) {
+                    showStatus('Total accounts must be between 1 and 800', 'error');
+                    return;
+                }
+                
+                // Get valid emails
+                const targetEmails = [];
+                for (let field of emailFields) {
+                    if (field.value && isValidEmail(field.value)) {
+                        targetEmails.push(field.value);
+                    }
+                }
+                
+                if (targetEmails.length === 0) {
+                    showStatus('Please enter valid email addresses', 'error');
+                    return;
+                }
+                
+                // Show processing status
+                showStatus(`Generating ${totalAccounts} ${accountType} accounts and sending to ${targetEmails.length} email(s)...`, 'processing');
+                
+                // Simulate generation and sending (in a real app, this would be server-side)
+                setTimeout(() => {
+                    const accounts = generateAccounts(accountType, totalAccounts);
+                    // In a real app, you would send this data to the server to email it
+                    showStatus(`Success! ${totalAccounts} ${accountType} accounts generated and sent to target emails.`, 'success');
+                    
+                    // For demo purposes, show some sample data
+                    console.log("Sample generated accounts:", accounts.slice(0, 3));
+                }, 2000);
+            });
+            
+            // Helper functions
+            function isValidEmail(email) {
+                return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+            }
+            
+            function showStatus(message, type) {
+                statusDiv.textContent = message;
+                statusDiv.style.display = 'block';
+                statusDiv.style.color = type === 'error' ? '#ff0000' : 
+                                        type === 'success' ? '#00ff00' : '#ffff00';
+            }
+            
+            function generateAccounts(type, count) {
+                const accounts = [];
+                for (let i = 0; i < count; i++) {
+                    accounts.push({
+                        email: generateRandomEmail(),
+                        phone: generateRandomPhone(),
+                        password: generateRandomPassword(),
+                        ip: generateRandomIP(),
+                        type: type
+                    });
+                }
+                return accounts;
+            }
+            
+            function generateRandomEmail() {
+                const domains = ['gmail.com', 'yahoo.com', 'outlook.com', 'protonmail.com'];
+                const chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
+                let username = '';
+                for (let i = 0; i < 8; i++) {
+                    username += chars.charAt(Math.floor(Math.random() * chars.length));
+                }
+                return `${username}@${domains[Math.floor(Math.random() * domains.length)]}`;
+            }
+            
+            function generateRandomPhone() {
+                return `+1${Math.floor(2000000000 + Math.random() * 8000000000)}`;
+            }
+            
+            function generateRandomPassword() {
+                const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*';
+                let password = '';
+                for (let i = 0; i < 12; i++) {
+                    password += chars.charAt(Math.floor(Math.random() * chars.length));
+                }
+                return password;
+            }
+            
+            function generateRandomIP() {
+                return `${Math.floor(Math.random() * 255)}.${Math.floor(Math.random() * 255)}.${Math.floor(Math.random() * 255)}.${Math.floor(Math.random() * 255)}`;
+            }
+        });
+    </script>
+</body>
+</html>
